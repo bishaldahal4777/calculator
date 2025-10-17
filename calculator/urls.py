@@ -20,5 +20,5 @@ from calc import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.index, name='views')
+    path('',views.index, name='views'),
 ]
