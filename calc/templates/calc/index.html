@@ -30,25 +30,38 @@
         </form>
 
         <h3 id="result"></h3>
+        <h3 id="result"></h3>
+
+<hr>
+<h4>Recent Calculations:</h4>
+<ul id="history">
+    {% for calc in history %}
+        <li>{{ calc.num1 }} {{ calc.operation }} {{ calc.num2 }} = {{ calc.result }}</li>
+    {% empty %}
+        <li>No history yet</li>
+    {% endfor %}
+</ul>
+
     </div>
 
-    <script>
-        const form = document.getElementById("calcForm");
-        form.addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            const formData = new FormData(form);
-            fetch("/calculate/", {
-                method: "POST",
-                headers: { "X-CSRFToken": formData.get("csrfmiddlewaretoken") },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("result").innerText = "Result: " + data.result;
-            })
-            .catch(err => console.error(err));
+   <script>
+    const form = document.getElementById("calcForm");
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const formData = new FormData(form);
+        fetch("/calculate/", {
+            method: "POST",
+            headers: { "X-CSRFToken": formData.get("csrfmiddlewaretoken") },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("result").innerText = "Result: " + data.result;
+            // Reload page section to show updated history
+            window.location.reload();
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
