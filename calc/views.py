@@ -1,7 +1,10 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 
 def index(request):
-    result = None
+    return render(request, "calc/index.html")
+
+def calculate(request):
     if request.method == "POST":
         num1 = float(request.POST.get("num1"))
         num2 = float(request.POST.get("num2"))
@@ -15,5 +18,5 @@ def index(request):
             result = num1 * num2
         elif operation == "divide":
             result = num1 / num2 if num2 != 0 else "Cannot divide by zero"
-    
-    return render(request, "calc/index.html", {"result": result})
+
+        return JsonResponse({"result": result})
