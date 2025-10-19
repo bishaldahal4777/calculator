@@ -5,4 +5,6 @@ from calc import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
+    path('calculate/', views.calculate, name='calculate'),
+
 ]
