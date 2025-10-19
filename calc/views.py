@@ -2,7 +2,10 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Calculation
 
-
+def index(request):
+    # Fetch recent history
+    history = Calculation.objects.all().order_by('-created_at')[:5]
+    return render(request, "calc/index.html", {"history": history})
 
 def calculate(request):
     if request.method == "POST":
