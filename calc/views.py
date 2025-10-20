@@ -22,9 +22,6 @@ def calculate(request):
         elif operation == "divide":
             result = num1 / num2 if num2 != 0 else "Cannot divide by zero"
 
-        # Save to database
-        Calculation.objects.create(
-            num1=num1, num2=num2, operation=operation, result=result
-        )
+       
 
         return JsonResponse({"result": result})
